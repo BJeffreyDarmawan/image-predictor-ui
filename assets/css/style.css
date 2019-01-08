@@ -21,12 +21,21 @@ html{
     background-image:-moz-radial-gradient(center, #ebebec, #b4b4b4);
     background-image:radial-gradient(center, #ebebec, #b4b4b4);
 
-    min-height:900px;
+    height: 100%;
 }
 
 body{
     font:15px/1.3 Arial, sans-serif;
     color: #4f4f4f;
+	margin: 0;
+	padding: 0;
+}
+
+h1{
+    text-align: center;
+    color: #aaa;
+    padding-bottom: 20px;
+    font-size: 24px;
 }
 
 a, a:visited {
@@ -47,8 +56,13 @@ section, footer, header, aside{
     The file upload form
 -----------------------------*/
 
-
-#upload{
+#1 {
+    display: block;
+}
+#2 {
+    display: block;
+}
+.container{
     font-family:'PT Sans Narrow', sans-serif;
     background-color:#373a3d;
 
@@ -56,12 +70,13 @@ section, footer, header, aside{
     background-image:-moz-linear-gradient(top, #373a3d, #313437);
     background-image:linear-gradient(top, #373a3d, #313437);
 
-    width:250px;
+    width:300px;
     padding:30px;
     border-radius:3px;
 
-    margin:200px auto 100px;
+    margin: 160px auto 100px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
 }
 
 #drop{
@@ -79,7 +94,7 @@ section, footer, header, aside{
     color:#7f858a;
 }
 
-#drop a{
+.blue-butt{
     background-color:#007a96;
     padding:12px 26px;
     color:#fff;
@@ -91,7 +106,7 @@ section, footer, header, aside{
     line-height:1;
 }
 
-#drop a:hover{
+.blue-butt:hover{
     background-color:#0986a3;
 }
 
@@ -99,14 +114,14 @@ section, footer, header, aside{
     display:none;
 }
 
-#upload ul{
+.container ul{
     list-style:none;
     margin:0 -30px;
     border-top:1px solid #2b2e31;
     border-bottom:1px solid #3d4043;
 }
 
-#upload ul li{
+.container ul li{
 
     background-color:#333639;
 
@@ -122,11 +137,11 @@ section, footer, header, aside{
     position: relative;
 }
 
-#upload ul li input{
+.container ul li input{
     display: none;
 }
 
-#upload ul li p{
+.container ul li p{
     width: 144px;
     overflow: hidden;
     white-space: nowrap;
@@ -138,20 +153,20 @@ section, footer, header, aside{
     left: 100px;
 }
 
-#upload ul li i{
+.container ul li i{
     font-weight: normal;
     font-style:normal;
     color:#7f7f7f;
     display:block;
 }
 
-#upload ul li canvas{
+.container ul li canvas{
     top: 15px;
     left: 32px;
     position: absolute;
 }
 
-#upload ul li span{
+.container ul li span{
     width: 15px;
     height: 12px;
     background: url('../img/icons.png') no-repeat;
@@ -161,100 +176,17 @@ section, footer, header, aside{
     cursor:pointer;
 }
 
-#upload ul li.working span{
+.container ul li.working span{
     height: 16px;
     background-position: 0 -12px;
 }
 
-#upload ul li.error p{
+.container ul li.error p{
     color:red;
 }
 
-
-/*----------------------------
-    The Demo Footer
------------------------------*/
-
-
-footer{
-    background-color: #080808;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0,0,0,0.4);
-    height: 40px;
-    left: 0;
-    position: fixed;
-    width: 100%;
-    z-index: 100000;
-}
-
-footer h2{
-    font-size: 14px;
-    font-weight: normal;
-    position: absolute;
-    top:0;
-    left: 50%;
-    bottom:0;
-    margin-left: -420px;
-    padding:13px 20px 0;
-    border:1px solid #000;
-    border-width:0 1px;
-    background-color:rgba(0,0,0,0.6);
-    box-shadow:0 0 5px #000 inset;
-    line-height: 1;
-    margin-top: 0;
-}
-
-footer h2 a{
-    color: #EEEEEE !important;
-    text-decoration:none !important;
-}
-
-footer h2 i{
-    font-style:normal;
-    color:#888;
-}
-
-#tzine-download{
-    opacity:0.9;
-    background-color:#257691;
-    font-size:11px;
-    text-align:center;
-    text-transform:uppercase;
-    width:150px;
-    height:28px;
-    line-height:28px;
-    text-decoration:none !important;
-
-    display: inline-block;
-    border-radius: 2px;
-    color: #fff !Important;
-    font-weight: bold;
-    box-shadow: 0 -1px 2px #1e5e74 inset;
-
-    border-top:1px solid #26849c;
-
-    text-shadow:1px 1px 1px #1e6176;
-    margin-top:6px;
-}
-
-#tzine-download:hover{
-    opacity:1;
-}
-
-#tzine-actions{
-    position:absolute;
-    top:0;
-    width:500px;
-    right:50%;
-    margin-right:-420px;
-    text-align:right;
-}
-
-#tzine-actions iframe{
-    display: inline-block;
-    height: 21px;
-    width: 95px;
-    position: relative;
-    float: left;
-    margin-top: 11px;
+.image-out {
+    width: 280px;
+    height: 200px;
+    margin-left: calc((100% - 280px)/2);
 }
