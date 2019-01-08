@@ -1,12 +1,5 @@
 $(function(){
 
-    const url = 'process.php';
-    const form = document.querySelector('form');
-
-    var predictOnClick = goToPredict();
-    var imageLink = "";
-
-    var post_response = "";
     var ul = $('#upload ul');
 
     $('#browse').click(function(){
@@ -31,7 +24,7 @@ $(function(){
                 $('#showimg li').remove();
             }
 
-            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
+            var tpl = $('<li><input type="text" value="100" data-width="48" data-height="48"'+
                 ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
             // Append the file name and file size
             tpl.find('p').text(data.files[0].name)
@@ -43,33 +36,10 @@ $(function(){
             // Initialize the knob plugin
             tpl.find('input').knob();
 
-            // Listen for clicks on the cancel icon
-            tpl.find('span').click(function(){
-                // data.submit();
-            });
-
-            // Automatically upload the file once it is added to the queue
-            //var jqXHR = data.submit();
-
-            data.submit();
-            // upload and wait for further response
-            // var formData = new FormData();
-            // formData.append(data.files[0].name, data.files[0]);
-            //
-            // var xhr = new XMLHttpRequest();
-            // xhr.open("POST", "myServletUrl");
-            // xhr.send(formData);
-            //
-            // xhr.onreadystatechange = processRequest;
-            //
-            // function processRequest(e) {
-            //     if (xhr.readyState == 4 && xhr.status == 200) {
-            //         // do what after success
-            //     }
-            // }
+            $('#predict').attr('onclick', 'uploadIMG()');
         },
 
-        progress: function(e, data){
+        progress: function(e, data) {
 
             // Calculate the completion percentage of the upload
             var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -78,24 +48,22 @@ $(function(){
             // so that the jQuery knob plugin knows to update the dial
             data.context.find('input').val(progress).change();
 
-            if(progress == 100){
+            if (progress == 100) {
                 data.context.removeClass('working');
             }
-        },
-
-        fail:function(e, data){
-            // Something has gone wrong!
-            data.context.addClass('error');
         }
+
+
 
     });
 
-
+    // -------------------- from template ----------------------------
     // Prevent the default action when a file is dropped on the window
     $(document).on('drop dragover', function (e) {
         e.preventDefault();
     });
 
+    // -------------------- from template ----------------------------
     // Helper function that formats the file sizes
     function formatFileSize(bytes) {
         if (typeof bytes !== 'number') {
@@ -113,74 +81,71 @@ $(function(){
         return (bytes / 1000).toFixed(2) + ' KB';
     }
 
+    // biar kl blm upload gbs pindah ke predict
     // document onload disable predict button
-    $(document).ready(function() {
-        $('#container-predict').hide();
+
+    $('#container-predict').hide();
+
+
+
+    // abis nunjukin predict-an nya, kalo mau upload image lg
+    $("#upload-again").click(function() {
+        location.reload();
     });
 
-
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-
-        const files = document.querySelector('[type=file]').files;
-        const formData = new FormData();
-
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-
-            formData.append('files[]', file);
-        }
-
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        }).then(response => {
-            console.log(response);
-
-            // what to do: enable predict
-            $('#predict').attr('onclick', predictOnClick);
-            imageLink = response.imageLink;
-
-        });
-    });
-
-
-
-
-
-    function goToPredict(){
-        // change display
-        $('#container-predict').slideUp();
-        //
-        //
-        // $('.jqueryOptions').slideUp();
-        // $('.jqueryOptions').removeClass('current-opt');
-        // $("." + $(this).val()).slideDown();
-        // $("." + $(this).val()).addClass('current-opt');
-
-    }
 
 });
 
-var kuda= function(data) {
-    var reader = new FileReader();
+const url = 'upload.php';
+const form = document.querySelector('form');
 
-    reader.onload = function (e) {
-        $('#2')
-            .attr('src', data)
-            .width(150)
-            .height(200);
-    };
-    console.log(data);
-    // reader.readAsDataURL(e.files[0]);
-    console.log("abc");
+var imageLink = "";
+var prediction = "";
+
+var file = "";
+
+function tempIMG(){
+    file    = document.querySelector('input[type=file]').files[0];
+    console.log(file);
 }
 
-var somefunction = function(){
+function uploadIMG(){
 
-};
+    const formData = new FormData();
 
-var changeContent = function(){
-    $()
+    formData.append(file.name, file);
+
+    console.log("File name: " + file.name);
+    console.log(formData);
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+            'Content-Type': 'multipart/form-data'
+        },
+        body: formData
+    }).then(response => {
+        console.log(response);
+        console.log(response.json()); // -------->>> this should work...
+
+        // resp = response.json();
+
+        // console.log(resp);
+        goToPredict();
+        // what to do: enable predict
+        // $('#predict').attr('onclick', 'goToPredict()');
+        // imageLink = resp.imageLink;
+        // prediction = resp.prediction;
+
+    });
+
+}
+
+function goToPredict(){
+    // $('#container-predict').show();
+    $('#container-predict').slideDown();
+    $('.image-out').attr("src", imageLink);
+    $('#prediction').text("Prediction: " + prediction);
+    $('#container-upload').hide();
 }

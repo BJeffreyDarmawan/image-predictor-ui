@@ -13,16 +13,18 @@
 	</head>
 
 	<body>
+
+
 		<div id = "container-upload" class="container">
 		    <div id="1">
-		    <form id="upload" method="post" enctype="multipart/form-data">
+		    <form id="upload" onsubmit="wawan()" method="post" enctype="multipart/form-data">
     			<h1>Upload picture to predict</h1>
 
     			<div id="drop">
     				Drop Here
 
     				<a id="browse" class="blue-butt">Browse</a>
-    				<input type="file" name="upl" multiple onchange="kuda(this.value)"/>
+    				<input type="file" name="upl"  onchange="tempIMG()" multiple/>
     			</div>
 
     			<ul id="showimg">
@@ -31,46 +33,18 @@
                 <a id="predict" class="blue-butt" onclick="">Predict</a>
     		</form>
     		</div>
-            <img id="2" src="">
 		</div>
+
 
         <div id="container-predict" class="container">
             <div>
                 <img class="image-out" src="">
             </div>
 
-            <p id="prediction" style="color: white; font-weight: normal; margin-top: 10px;">Prediction: </p>
-            <a class="blue-butt">Predict another image</a>
+            <p id="prediction" style="color: white; font-weight: normal; margin-top: 10px;"></p>
+            <a id="upload-again" class="blue-butt">Predict another image</a>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		<!-- JavaScript Includes -->
