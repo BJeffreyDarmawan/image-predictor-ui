@@ -1,10 +1,11 @@
 $(function(){
 
-    const url = 'process.php';
+    const url = 'upload.php';
     const form = document.querySelector('form');
 
     var predictOnClick = goToPredict();
     var imageLink = "";
+    var prediction = "";
 
     var post_response = "";
     var ul = $('#upload ul');
@@ -50,7 +51,7 @@ $(function(){
 
             // Automatically upload the file once it is added to the queue
             //var jqXHR = data.submit();
-
+            console.log("mau submit nih");
             data.submit();
             // upload and wait for further response
             // var formData = new FormData();
@@ -141,25 +142,26 @@ $(function(){
             // what to do: enable predict
             $('#predict').attr('onclick', predictOnClick);
             imageLink = response.imageLink;
+            prediction = response.prediction;
 
         });
     });
 
 
 
-
-
     function goToPredict(){
         // change display
         $('#container-predict').slideUp();
-        //
-        //
-        // $('.jqueryOptions').slideUp();
-        // $('.jqueryOptions').removeClass('current-opt');
-        // $("." + $(this).val()).slideDown();
-        // $("." + $(this).val()).addClass('current-opt');
+        $('.image-out').attr("src", imageLink);
+
 
     }
+
+
+    $('#upload-again').click(function(){
+        location.reload();
+    });
+
 
 });
 
