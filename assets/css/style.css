@@ -74,7 +74,7 @@ section, footer, header, aside{
     padding:30px;
     border-radius:3px;
 
-    margin: 160px auto 100px;
+    margin: 160px auto auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     font-weight: bold;
 }

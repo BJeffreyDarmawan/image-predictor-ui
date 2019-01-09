@@ -1,4 +1,6 @@
 $(function(){
+    console.log($(window).height());
+    $('body').css('max-height', $(window).height());
 
     var ul = $('#upload ul');
 
@@ -86,6 +88,32 @@ $(function(){
 
     $('#container-predict').hide();
 
+    $('#revise-text').change(function(){
+        $('#revise-butt').click(function(){
+
+            var rev = $('#revise-text').value;
+            fetch(url + "/revise", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: {
+                    revision: rev
+                }
+            }).then(response => {
+
+                return response.json();
+
+            }).then(data => {
+
+                console.log(data);
+
+            });
+        });
+    });
+
+
+
 
 
     // abis nunjukin predict-an nya, kalo mau upload image lg
@@ -118,34 +146,30 @@ function uploadIMG(){
     console.log("File name: " + file.name);
     console.log(formData);
 
-    fetch(url, {
+    fetch(url + "/upload-img", {
         method: 'POST',
         headers: {
-            'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-            'Content-Type': 'multipart/form-data'
+            'Accept': 'application/json'
         },
         body: formData
     }).then(response => {
-        console.log(response);
-        console.log(response.json()); // -------->>> this should work...
 
-        // resp = response.json();
+        return response.json();
 
-        // console.log(resp);
+    }).then(data => {
+        console.log(data);
+        imageLink = data.imageLink;
+        prediction = data.prediction;
+        console.log(imageLink + " " + prediction);
         goToPredict();
-        // what to do: enable predict
-        // $('#predict').attr('onclick', 'goToPredict()');
-        // imageLink = resp.imageLink;
-        // prediction = resp.prediction;
-
     });
 
 }
 
 function goToPredict(){
-    // $('#container-predict').show();
     $('#container-predict').slideDown();
     $('.image-out').attr("src", imageLink);
     $('#prediction').text("Prediction: " + prediction);
     $('#container-upload').hide();
 }
+
