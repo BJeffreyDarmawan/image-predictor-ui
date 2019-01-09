@@ -91,7 +91,8 @@ $(function(){
     $('#revise-text').change(function(){
         $('#revise-butt').click(function(){
 
-            var rev = $('#revise-text').value;
+            var rev = $('#revise-text').val();
+            console.log(rev);
             fetch(url + "/revise", {
                 method: 'POST',
                 headers: {
