@@ -19,13 +19,14 @@ $(function(){
         // This function is called when a file is added to the queue;
         // either via the browse button, or via drag/drop:
         add: function (e, data) {
-            console.log("yey" + data.files[0]);
 
+            // delete existing filename
             if($('#showimg li')) {
                 console.log("print this 2");
                 $('#showimg li').remove();
             }
 
+            // display filename below dropzone
             var tpl = $('<li><input type="text" value="100" data-width="48" data-height="48"'+
                 ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
             // Append the file name and file size
@@ -83,11 +84,10 @@ $(function(){
         return (bytes / 1000).toFixed(2) + ' KB';
     }
 
-    // biar kl blm upload gbs pindah ke predict
-    // document onload disable predict button
-
+    // hide container-predict
     $('#container-predict').hide();
 
+    // enable button after change in text
     $('#revise-text').change(function(){
         $('#revise-butt').click(function(){
 
@@ -111,10 +111,6 @@ $(function(){
             });
         });
     });
-
-
-
-
 
     // abis nunjukin predict-an nya, kalo mau upload image lg
     $("#upload-again").click(function() {
